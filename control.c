@@ -17,7 +17,7 @@ int main(int argc, char *argv[]){
     union semun su;
 
     if(strcmp(argv[1], "-c") == 0){
-      //printf("-c\n");
+      printf("Creating\n");
       semid = semget(key, 1, IPC_CREAT | 0644);
       su.val = 1;
       semctl(semid, 0, SETVAL, su);
@@ -33,14 +33,14 @@ int main(int argc, char *argv[]){
     }
 
     if(strcmp(argv[1], "-r") == 0){
-      //printf("-r\n");
+      printf("Removing semaphore and shared memory.\n");
       fd = open("semaphone.ring", O_RDONLY);
       fsize = lseek(fd, 0, SEEK_END);
       lseek(fd,-1 * fsize, SEEK_CUR);
       char buffer[fsize];
       read(fd, buffer, fsize);
       //printf("size: %d\n", fsize);
-      printf("%s\n", buffer);
+      printf("\nDisplaying contents:\n%s\n", buffer);
       close(fd);
 
       semid = semget(key, 1, 0);
@@ -51,7 +51,7 @@ int main(int argc, char *argv[]){
     }
 
     if(strcmp(argv[1], "-v") == 0){
-      //printf("-v\n");
+      printf("Viewing story\n");
       fd = open("semaphone.ring", O_RDONLY);
       fsize = lseek(fd, 0, SEEK_END);
       lseek(fd,-1 * fsize, SEEK_CUR);
