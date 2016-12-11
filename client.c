@@ -10,7 +10,7 @@ void main(){
     int key = ftok("makefile", 22);
     int semid = semget(key, 1, 0644);
     int shmid = shmget(key, 4, 0644);
-    int fd = open("semaphone.ring", O_APPEND | O_RDWR | 0666);
+    int fd = open("semaphone.ring", O_APPEND | O_RDWR | 0644);
 
     struct sembuf sb;
     sb.sem_num = 0;
