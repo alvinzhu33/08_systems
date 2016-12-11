@@ -44,10 +44,10 @@ int main(int argc, char *argv[]){
       close(fd);
 
       semid = semget(key, 1, 0);
-      semctl(key, 0, IPC_RMID);
+      semctl(semid, 0, IPC_RMID);
 
       shmid = shmget(key, 4, 0);
-      shmctl(key, IPC_RMID, 0);
+      shmctl(shmid, IPC_RMID, 0);
     }
 
     if(strcmp(argv[1], "-v") == 0){
