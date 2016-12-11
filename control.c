@@ -13,6 +13,7 @@ int main(int argc, char *argv[]){
     int shmid;
     int fd;
     int fsize;
+    int *size;
     union semun su;
 
     if(strcmp(argv[1], "-c") == 0){
@@ -24,7 +25,9 @@ int main(int argc, char *argv[]){
       shmid = shmget(key, 4, IPC_CREAT | 0644);
 
       fd = open("semaphone.ring", O_CREAT | O_TRUNC | 0644);
-      fsize = lseek(fd, 0, SEEK_END);
+      //fsize = lseek(fd, 0, SEEK_END);
+      size = (int *) shmat(shmid, 0, 0);
+      size = 0;
       //printf("size: %d\n", fsize);
       close(fd);
     }

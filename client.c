@@ -20,7 +20,7 @@ void main(){
 
     int *size;
     size = (int *) shmat(shmid, 0, 0);
-    printf("Size: %d\n", *size);
+    //printf("Size: %d\n", *size);
     char text[*size + 1];
     lseek(fd, -(*size), SEEK_END);
     read(fd, text, *size);
@@ -30,7 +30,9 @@ void main(){
     char next[256];
     printf("Next entry: ");
     fgets(next, sizeof(next), stdin);
-    write(fd, next, strlen(next));
+    //printf("%s\n", next);
+    *size = strlen(next);
+    write(fd, next, *size);
 
     sb.sem_op = 1;
     semop(semid, &sb, 1);
